@@ -3,7 +3,7 @@ Run as:
 > python classifier.py
 
 The result file 'result.txt' will be generated under folder "./result"
-This program requires the python library 'numpy' be installed on your computer.
+This program requires the python library 'numpy' installed on your computer.
 
 Thanks
 ---------------

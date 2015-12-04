@@ -1,4 +1,4 @@
-from generateData import * 
+from generateData import *
 from gmm3 import *
 
 X0train = generateDataCat('data/train.txt',0)
@@ -38,7 +38,11 @@ for i in range(row):
 	line += " "
 	line += str(retest[i]+1)
 	line += '\n'
-	outf.write(line)	
+	outf.write(line)
 
 outf.close()
 
+"""
+test for change-case in atom
+hello/word
+"""

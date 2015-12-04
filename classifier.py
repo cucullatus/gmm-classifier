@@ -45,4 +45,5 @@ outf.close()
 """
 test for change-case in atom
 hello/word
+xixixixi
 """

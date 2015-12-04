@@ -11,9 +11,7 @@ X = np.mat([[1,2,3,4],[4,3,2,1],[5,6,7,8],[8,7,6,5],[4,5,6,7]])
 
 class GMM(object):
 
-	"""docstring for GMM algorithm
-       add this for test
-    """
+	"""docstring for GMM algorithm"""
 	def __init__(self, K_or_centroids, X):
 		super(GMM, self).__init__()
 		#self.K_or_centroids = K_or_centroids

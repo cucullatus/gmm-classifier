@@ -1,3 +1,5 @@
+Gaussian Mixture Model for Classification
+
 Run as:
 
 > python classifier.py

@@ -14,7 +14,6 @@ class GMM(object):
 	"""docstring for GMM algorithm"""
 	def __init__(self, K_or_centroids, X):
 		super(GMM, self).__init__()
-		#self.K_or_centroids = K_or_centroids
 		self.N, self.D = np.shape(X)
 		self.Lprev = -np.inf
 		self.L = 0.0
@@ -105,17 +104,9 @@ class GMM(object):
 
 		print '---init---'
 		for k in range(self.K):
-	#		print "labels: ",labels,np.shape(labels)
 			Xk = X[labels==k]
-	#		print "Xk: ", np.shape(Xk)
 			print Xk
-	#		print "np.shape(Xk)[0]: ", np.shape(Xk)[0]
-	#		print "k: ",k
-	#		print "pPi: ", np.shape(pPi)
 			pPi[0,k] = np.shape(Xk)[0] / (self.N+0.0)
-			#print "pSigma: ", pSigma, np.shape(pSigma)
-	#		print "Xk: ",Xk
-	#		print "cov: ",np.cov(Xk,rowvar=0)
 			covm = np.cov(Xk,rowvar=0)
 
 			pSigma[k,:,:] = self.regular(np.cov(Xk,rowvar=0))
@@ -141,22 +132,11 @@ class GMM(object):
 		for k in range(self.K):
 			# 计算 N(X|\mu_k,\Sigma_k)
 			Xshift = X - np.kron(np.ones((self.N,1)),self.pMiu[k]) # Xshift N by D
-	#		print "Xshift: ", Xshift
-	#			print "pSigma[k,:,:]: ", self.pSigma[k,:,:]
 			inv_pSigma = np.linalg.inv(self.pSigma[k,:,:]) # D by D
-			#tmp = np.sum(np.multiply((Xshift * inv_pSigma),Xshift) , 1) # sum((X*D).*X,2)
-	#		print "Xshift: ", np.shape(Xshift), "inv_pSigma: ",np.shape(inv_pSigma), "diagonal: ",(Xshift * inv_pSigma * np.transpose(Xshift)).diagonal()
 			tmp = (Xshift * inv_pSigma * np.transpose(Xshift)).diagonal()
-	#		print "tmp: ",tmp, np.shape(tmp)
 			tmp = tmp[0] # 1 by N
-	#		print "tmp[0]: ", tmp
-	#		print "inv_pSigma: ", inv_pSigma
-	#		print "np.linalg.det(inv_pSigma): ", np.linalg.det(inv_pSigma)
 			coef = (2*np.pi)**(-self.D/2)*np.sqrt(np.linalg.det(inv_pSigma))
-			#print "Px[:,k]: ",Px[:,k], np.shape(Px[:,k]),"tmp: ", np.shape(tmp)
 			Px[:,k] = coef*np.exp(-0.5*np.array(tmp))
-	#		print "np.array(tmp): ",np.array(tmp)
-	#		print "Px[:,k]: ",Px[:,k], np.shape(Px[:,k]),"tmp: ", np.shape(tmp)
 		print "calc_prob Px: ", Px
 		return Px
 		# Px[i,k] = N(x_i|\mu_k, \Sigma_k)
@@ -173,22 +153,11 @@ def calc_prob(gmmModel,testX):
         for k in range(gmmModel.K):
                 # 计算 N(X|\mu_k,\Sigma_k)
                 Xshift = testX - np.kron(np.ones((N,1)),gmmModel.pMiu[k]) # Xshift N by D
-#               print "Xshift: ", Xshift
-#                       print "pSigma[k,:,:]: ", self.pSigma[k,:,:]
                 inv_pSigma = np.linalg.inv(gmmModel.pSigma[k,:,:]) # D by D
-                #tmp = np.sum(np.multiply((Xshift * inv_pSigma),Xshift) , 1) # sum((X*D).*X,2)
-#               print "Xshift: ", np.shape(Xshift), "inv_pSigma: ",np.shape(inv_pSigma), "diagonal: ",(Xshift * inv_pSigma * np.transpose(Xshift)).diagonal()
                 tmp = (Xshift * inv_pSigma * np.transpose(Xshift)).diagonal()
-#               print "tmp: ",tmp, np.shape(tmp)
                 tmp = tmp[0] # 1 by N
-#               print "tmp[0]: ", tmp
-#               print "inv_pSigma: ", inv_pSigma
-#               print "np.linalg.det(inv_pSigma): ", np.linalg.det(inv_pSigma)
                 coef = (2*np.pi)**(-gmmModel.D/2)*np.sqrt(np.linalg.det(inv_pSigma))
-                #print "Px[:,k]: ",Px[:,k], np.shape(Px[:,k]),"tmp: ", np.shape(tmp)
                 Px[:,k] = coef*np.exp(-0.5*np.array(tmp))
-#               print "np.array(tmp): ",np.array(tmp)
-#               print "Px[:,k]: ",Px[:,k], np.shape(Px[:,k]),"tmp: ", np.shape(tmp)
         print "calc_prob Px: ", Px
         return Px
         # Px[i,k] = N(x_i|\mu_k, \Sigma_k)
@@ -217,7 +186,7 @@ def evaluate(re,ans):# re, ans are two list
     return acc
 
 if __name__=="__main__":
-	# prepare data
+    # prepare data
     X = np.mat([[1,2,3,4],[4,3,2,1],[5,6,7,8],[8,7,6,5],[4,5,6,7]])
     #N,D = np.shape(X)
     gmm = GMM(3,X)
